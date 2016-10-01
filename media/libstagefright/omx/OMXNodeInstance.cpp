@@ -670,7 +670,7 @@ status_t OMXNodeInstance::useBuffer(
         OMX_U32 portIndex, const sp<IMemory> &params,
         OMX::buffer_id *buffer, OMX_U32 allottedSize) {
     if (params == NULL || buffer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -719,7 +719,7 @@ status_t OMXNodeInstance::useGraphicBuffer2_l(
         OMX_U32 portIndex, const sp<GraphicBuffer>& graphicBuffer,
         OMX::buffer_id *buffer) {
     if (graphicBuffer == NULL || buffer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -775,7 +775,7 @@ status_t OMXNodeInstance::useGraphicBuffer(
         OMX_U32 portIndex, const sp<GraphicBuffer>& graphicBuffer,
         OMX::buffer_id *buffer) {
     if (graphicBuffer == NULL || buffer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
     Mutex::Autolock autoLock(mLock);
@@ -840,7 +840,7 @@ status_t OMXNodeInstance::updateGraphicBufferInMeta_l(
         OMX::buffer_id buffer, OMX_BUFFERHEADERTYPE *header, bool updateCodecBuffer) {
     // No need to check |graphicBuffer| since NULL is valid for it as below.
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -897,7 +897,7 @@ status_t OMXNodeInstance::updateNativeHandleInMeta(
     OMX_BUFFERHEADERTYPE *header = findBufferHeader(buffer);
     // No need to check |nativeHandle| since NULL is valid for it as below.
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -993,7 +993,7 @@ status_t OMXNodeInstance::createInputSurface(
         OMX_U32 portIndex, android_dataspace dataSpace,
         sp<IGraphicBufferProducer> *bufferProducer, MetadataBufferType *type) {
     if (bufferProducer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -1015,7 +1015,7 @@ status_t OMXNodeInstance::createPersistentInputSurface(
         sp<IGraphicBufferProducer> *bufferProducer,
         sp<IGraphicBufferConsumer> *bufferConsumer) {
     if (bufferProducer == NULL || bufferConsumer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
     String8 name("GraphicBufferSource");
@@ -1068,7 +1068,7 @@ status_t OMXNodeInstance::allocateSecureBuffer(
         OMX_U32 portIndex, size_t size, OMX::buffer_id *buffer,
         void **buffer_data, native_handle_t **native_handle) {
     if (buffer == NULL || buffer_data == NULL || native_handle == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -1118,7 +1118,7 @@ status_t OMXNodeInstance::allocateBufferWithBackup(
         OMX_U32 portIndex, const sp<IMemory> &params,
         OMX::buffer_id *buffer, OMX_U32 allottedSize) {
     if (params == NULL || buffer == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -1170,7 +1170,7 @@ status_t OMXNodeInstance::freeBuffer(
 
     OMX_BUFFERHEADERTYPE *header = findBufferHeader(buffer);
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
     BufferMeta *buffer_meta = static_cast<BufferMeta *>(header->pAppPrivate);
@@ -1190,7 +1190,7 @@ status_t OMXNodeInstance::fillBuffer(OMX::buffer_id buffer, int fenceFd) {
 
     OMX_BUFFERHEADERTYPE *header = findBufferHeader(buffer);
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
     header->nFilledLen = 0;
@@ -1227,7 +1227,7 @@ status_t OMXNodeInstance::emptyBuffer(
 
     OMX_BUFFERHEADERTYPE *header = findBufferHeader(buffer);
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
     BufferMeta *buffer_meta =
@@ -1382,7 +1382,7 @@ status_t OMXNodeInstance::emptyGraphicBuffer(
         OMX_BUFFERHEADERTYPE *header, const sp<GraphicBuffer> &graphicBuffer,
         OMX_U32 flags, OMX_TICKS timestamp, int fenceFd) {
     if (header == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return BAD_VALUE;
     }
 
@@ -1540,7 +1540,7 @@ bool OMXNodeInstance::handleMessage(omx_message &msg) {
         OMX_BUFFERHEADERTYPE *buffer =
             findBufferHeader(msg.u.extended_buffer_data.buffer);
         if (buffer == NULL) {
-            ALOGE("b/25884056");
+            ALOGE("b/25884056 %d", __LINE__);
             return BAD_VALUE;
         }
 
@@ -1685,7 +1685,7 @@ OMX_ERRORTYPE OMXNodeInstance::OnEvent(
         OMX_IN OMX_U32 nData2,
         OMX_IN OMX_PTR pEventData) {
     if (pAppData == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return OMX_ErrorBadParameter;
     }
     OMXNodeInstance *instance = static_cast<OMXNodeInstance *>(pAppData);
@@ -1702,7 +1702,7 @@ OMX_ERRORTYPE OMXNodeInstance::OnEmptyBufferDone(
         OMX_IN OMX_PTR pAppData,
         OMX_IN OMX_BUFFERHEADERTYPE* pBuffer) {
     if (pAppData == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return OMX_ErrorBadParameter;
     }
     OMXNodeInstance *instance = static_cast<OMXNodeInstance *>(pAppData);
@@ -1720,7 +1720,7 @@ OMX_ERRORTYPE OMXNodeInstance::OnFillBufferDone(
         OMX_IN OMX_PTR pAppData,
         OMX_IN OMX_BUFFERHEADERTYPE* pBuffer) {
     if (pAppData == NULL) {
-        ALOGE("b/25884056");
+        ALOGE("b/25884056 %d", __LINE__);
         return OMX_ErrorBadParameter;
     }
     OMXNodeInstance *instance = static_cast<OMXNodeInstance *>(pAppData);
